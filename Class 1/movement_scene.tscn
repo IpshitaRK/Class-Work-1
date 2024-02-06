@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy8q6thupu2ta"]
+
+[ext_resource type="Script" path="res://ball.gd" id="1_fykvs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37c2d"]
+albedo_color = Color(0.247059, 0.470588, 0.223529, 1)
+
+[node name="movement scene" type="Node3D"]
+
+[node name="level" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.64704, 0)
+
+[node name="Land" type="CSGBox3D" parent="level"]
+material_override = SubResource("StandardMaterial3D_37c2d")
+size = Vector3(100, 1, 100)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="level"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="ball" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.65464, -3.20293)
+radial_segments = 20
+rings = 10
+script = ExtResource("1_fykvs")
+
+[node name="Timer" type="Timer" parent="ball"]
+autostart = true
+
+[connection signal="timeout" from="ball/Timer" to="ball" method="_on_timer_timeout"]
